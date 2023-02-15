@@ -3,41 +3,93 @@
     <head>
         <title>Form Activity</title>
         <link rel="stylesheet" href="style.css" type="text/css" />
+        <script language="javascript" type="text/javascript">
+            function checkPass() {
+                var pass = document.regForm.passw.value;
+
+                if(pass.length < 8) {
+                    document.getElementById("pass_msg").innerHTML = "Password must be at least 8 characters.";    
+                    return false;
+                }
+                else {
+                    document.getElementById("pass_msg").innerHTML = "";    
+                    return true;
+                }
+                
+
+            }
+
+            function checkAge() {
+                var dob = document.getElementById("dob");
+                var year = new Date(dob.value).getFullYear();
+                var age = 2023 - year;
+
+
+                if(age <= 21){
+                    document.getElementById("date_msg").innerHTML = "Minors are not allowed!";
+                    return false;
+                }
+                else{
+                    document.getElementById("date_msg").innerHTML = "";
+                    return true;
+                }
+
+            }
+
+            function checkValid() {
+
+                if(checkPass() == true && checkAge() == true) {
+                document.getElementById("valid_msg").innerHTML = "Hooray! Your account has been successfully created.";
+                }
+            }
+            
+            function resetForm() {
+                document.getElementById("pass_msg").innerHTML = "";
+                document.getElementById("date_msg").innerHTML = "";
+                document.getElementById("valid_msg").innerHTML = "";
+            }
+        </script>
     </head>
     <body>
-        <form>
-        <h1>Registration Form</h1>
-        
-        First Name: <br>
-        <input type="text" name="firstname"/>
-        <br>
-        Last Name: <br>
-        <input type="text" name="lastname"/>
-        <br>
-        Nick Name: <br>
-        <input type="text" name="nickname"/>
-        <br>
-        Email: <br>
-        <input type="email" name="email" />
-        <br>
-        Password: <br>
-        <input type="password" name="password" />
-        <br>
-        Date of Birth: <br>
-        <input type="date" name="birthdate" />
-        <br>
-        Gender: <br>
-        <input type="radio" name="male" value="male"/> Male
-        <input type="radio" name="female" value="female"/> Female
-        <br>
-        Mobile: <br>
-        <input type="number" name="mobile" />
-        <br>
-        Address: <br>
-        <textarea name="address" cols="30" rows="15"></textarea>
-        <br>
-        <input type="submit" name="submit" value="Submit"/>
-        <input type="reset" name="reset" value="Reset"/>
-        <br>
+        <form name="regForm">
+            <h1>Registration Form</h1>
+
+            <p><span id = "valid_msg" style="color:green;font-size: smaller;" > </span></p>
+            
+            <hr>
+            First Name: <br>
+            <input type="text" name="firstname"><br>
+            <br>
+            Last Name: <br>
+            <input type="text" name="lastname"><br>
+            <br>
+            Nick Name: <br>
+            <input type="text" name="nickname"><br>
+            <br>
+            Email: <br>
+            <input type="email" name="email"><br>
+            <br>
+            Password: <br>
+            <input type="password" name="passw"><br>
+            <span id = "pass_msg" style="color:red;font-size: smaller;" > </span>
+            <br>
+            Date of Birth: <br>
+            <input type="date" name="birthdate" id="dob"><br>
+            <span id = "date_msg" style="color:red;font-size: smaller;" > </span>
+            <br>
+            Gender: <br>
+            <input type="radio" name="male" value="male"> Male
+            <input type="radio" name="female" value="female"> Female
+            <br>
+            <br>
+            Mobile: <br>
+            <input type="number" name="mobile"><br>     
+            <br>
+            Address: <br>
+            <textarea name="address" cols="30" rows="15"></textarea>
+            <br>
+            <input type="button" id="sub" name="submit" value="Submit" onclick="checkValid()"/>
+            <input type="button" id="res" name="reset" value="Reset" onclick="resetForm()"/>
+            <br>
         </form>
     </body>
